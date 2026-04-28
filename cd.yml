@@ -1,4 +1,4 @@
-name: CD Pipeline
+ame: CD Pipeline
 
 on:
   push:
@@ -9,6 +9,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Deploy to Render
-      run: |
-        curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+      - uses: actions/checkout@v4
+
+      - name: Deploy to Vercel
+        run: |
+          npm i -g vercel
+          vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
